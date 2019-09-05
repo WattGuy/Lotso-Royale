@@ -5,9 +5,6 @@ using UnityEngine.UI;
 public class Menu : MonoBehaviour
 {
 
-    public static string ip = "127.0.0.1";
-    public static ushort port = 4296;
-
     private Text portText;
     private Text ipText;
 
@@ -38,15 +35,15 @@ public class Menu : MonoBehaviour
 
         }
 
-        ipText.text = ip;
-        portText.text = port.ToString();
+        ipText.text = Client.ip;
+        portText.text = Client.port.ToString();
 
     }
 
     public void Connect() {
 
-        ip = ipText.text;
-        port = ushort.Parse(portText.text);
+        Client.ip = ipText.text;
+        Client.port = short.Parse(portText.text);
 
         SceneManager.LoadScene("game");
 

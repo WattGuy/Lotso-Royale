@@ -8,14 +8,14 @@ public class Quit : MonoBehaviour
 
     public void reload() {
 
-        GameObject.FindGameObjectWithTag("NetworkManager").GetComponent<Client>().Disconnect();
+        Client.instance.Disconnect(false);
         SceneManager.LoadScene("game");
 
     }
 
     public void quit() {
 
-        GameObject.FindGameObjectWithTag("NetworkManager").GetComponent<Client>().Disconnect();
+        Client.instance.Disconnect(false);
         SceneManager.LoadScene("menu");
 
     }

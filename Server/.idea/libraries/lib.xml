@@ -1,0 +1,15 @@
+<component name="libraryTable">
+  <library name="lib">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/lib/netty-all-4.1.8.Final.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/protobuf-java-3.0.0.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <NATIVE>
+      <root url="file://$PROJECT_DIR$/lib" />
+    </NATIVE>
+    <SOURCES>
+      <root url="jar://$PROJECT_DIR$/lib/netty-all-4.1.8.Final-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

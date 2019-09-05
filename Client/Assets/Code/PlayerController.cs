@@ -40,8 +40,8 @@ public class PlayerController : MonoBehaviour
     private GameObject leftArm;
     private GameObject rightArm;
 
-    public Client client;
-    public ushort id;
+    //public Client client;
+    public int id;
 
     public GameObject blood;
     public GameObject cartridge;
@@ -169,7 +169,7 @@ public class PlayerController : MonoBehaviour
         Destructible dest = go.GetComponent<Destructible>();
         if (dest != null) return;
 
-        client.Send(new DestructibleShotMessage((ushort) dest.id), 0, ENet.PacketFlags.Reliable);
+        //client.Send(new DestructibleShotMessage((ushort) dest.id), 0, ENet.PacketFlags.Reliable);
 
     }
 
@@ -290,7 +290,7 @@ public class PlayerController : MonoBehaviour
         }
         else if (gun == Gun.M92) {
             Animation a = selected.GetComponent<Animation>();
-            if (bullet) SpawnBullet(id);
+            if (bullet) SpawnBullet();
             if (a == null || a.IsPlaying("Pistol")) return;
 
             a.Play();
@@ -299,7 +299,7 @@ public class PlayerController : MonoBehaviour
         } else if (gun == Gun.AK47)
         {
             Animation a = selected.GetComponent<Animation>();
-            if (bullet) SpawnBullet(id);
+            if (bullet) SpawnBullet();
             if (a == null || a.IsPlaying("AR")) return;
 
             a.Play();
@@ -314,22 +314,32 @@ public class PlayerController : MonoBehaviour
         {
             if (gun != Gun.ARMS) {
 
-                client.Send(new BulletShotMessage((ushort)client.id, 0, new Vector2(transform.position.x, transform.position.y), transform.rotation.x, transform.rotation.w), 0, ENet.PacketFlags.Reliable);
+                SpawnBullet();
+                new PlayerShotPacket(this.id, ObjectType.NONE, 0, transform.rotation.eulerAngles.z + 90f).Write();
 
             } else {
 
-                if (d != null && d.col != null && d.col.gameObject != null && d.col.GetComponent<Destructible>() != null)
-                {
-                    client.Send(new PlayerDestructibleShotMessage((ushort)Client.instance.id, d.col.GetComponent<Destructible>().id, true), 0, ENet.PacketFlags.Reliable);
-                }
-                else if (d != null && d.col != null && d.col.gameObject != null && d.col.GetComponent<PlayerController>() != null) {
+                if (!(d != null && d.col != null && d.col.gameObject != null)) return;
 
-                    client.Send(new PlayerPlayerShotMessage((ushort)Client.instance.id, d.col.GetComponent<PlayerController>().id), 0, ENet.PacketFlags.Reliable);
+                PlayerController pt = d.col.GetComponent<PlayerController>();
+                Destructible dt = d.col.GetComponent<Destructible>();
+
+                if (pt != null)
+                {
+
+                    new PlayerShotPacket(this.id, ObjectType.PLAYER, pt.id, 0).Write();
 
                 }
-                else
+                else if (dt != null)
                 {
-                    client.Send(new PlayerDestructibleShotMessage((ushort)Client.instance.id, 0, false), 0, ENet.PacketFlags.Reliable);
+
+                    new PlayerShotPacket(this.id, ObjectType.DESTRUCTIBLE, dt.id, 0).Write();
+
+                }
+                else {
+
+                    new PlayerShotPacket(this.id, ObjectType.NONE, 0, 0).Write();
+
                 }
 
             }
@@ -337,17 +347,10 @@ public class PlayerController : MonoBehaviour
 
     }
 
-    public void SpawnBullet(ushort id)
+    private void SpawnBullet()
     {
-
-        GameObject go = GameObject.Instantiate(bullet, new Vector3(spawn.position.x, spawn.position.y, spawn.position.z), transform.rotation);
-        BulletController bc = go.GetComponent<BulletController>();
-        bc.id = id;
-        bc.by = this;
-
-        Client.instance.bullets.Add(id, go);
+        GameObject.Instantiate(bullet, new Vector3(spawn.position.x, spawn.position.y, spawn.position.z), transform.rotation);
         SpawnCartridge();
-
     }
 
     private float time = 0f;
@@ -374,13 +377,13 @@ public class PlayerController : MonoBehaviour
         if (toPosition != null)
         {
 
-            transform.position = Vector3.Lerp(transform.position, (Vector3)toPosition, 0.1f);
+            transform.position = Vector3.Lerp(transform.position, (Vector3) toPosition, 0.1f);
 
         }
 
         if (toRotation != null) {
 
-            transform.rotation = Quaternion.Lerp(transform.rotation, (Quaternion)toRotation, 0.15f);
+            transform.rotation = Quaternion.Lerp(transform.rotation, (Quaternion) toRotation, 0.15f);
 
         }
 
@@ -390,10 +393,11 @@ public class PlayerController : MonoBehaviour
 
         while (true)
         {
-            if ((Vector3.Distance(lastPosition, transform.position) > moveDistance || lastRotation != transform.rotation) && client.id != null)
+
+            if ((Vector3.Distance(lastPosition, transform.position) > moveDistance || lastRotation != transform.rotation) && Client.instance.id != null)
             {
 
-                client.Send(new PlayerMoveMessage((ushort)client.id, transform.position, transform.rotation.z, transform.rotation.w), 0);
+                Client.instance.Send(new PlayerMovePacket((int) Client.instance.id, transform.position.x, transform.position.y, transform.rotation.z, transform.rotation.w));
 
                 lastPosition = transform.position;
                 lastRotation = transform.rotation;

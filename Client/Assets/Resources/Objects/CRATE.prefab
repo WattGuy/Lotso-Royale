@@ -142,6 +142,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   id: 0
-  max: 4
+  health: 4
   step: 0.05
-  shots: 0

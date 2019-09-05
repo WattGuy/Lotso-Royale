@@ -1,7 +1,7 @@
 ﻿public class Tags
 {
 
-    public const ushort PLAYER_SPAWN = 0;
+    /*public const ushort PLAYER_SPAWN = 0;
     public const ushort PLAYER_MOVE = 1;
     public const ushort PLAYER_DESPAWN = 2;
     public const ushort BULLET_SHOT = 3;
@@ -29,6 +29,18 @@
 
     public const ushort CIRCLE_SPAWN = 19;
 
-    public const ushort OBJECTS_NUMBER = 20;
+    public const ushort OBJECTS_NUMBER = 20;*/
+
+    public const ushort PING = 1;
+    public const ushort PLAYER_SPAWN = 2;
+    public const ushort INFO = 3;
+    public const ushort OBJECT_SPAWN = 4;
+    public const ushort PLAYER_MOVE = 5;
+    public const ushort PLAYER_SHOT = 6;
+    public const ushort OBJECT_DESPAWN = 7;
+    public const ushort PLAYER_INFO = 8;
+    public const ushort CIRCLE_INFO = 9;
+    public const ushort PLAYER_PICKUP = 10;
+    public const ushort OBJECT_INFO = 11;
 
 }

@@ -21,8 +21,12 @@ public enum DestructibleType {
     STONE, CRATE,
 }
 
-public enum IndestructibleType{
+public enum IndestructibleType {
     BUSH
+}
+
+public enum ObjectType {
+    DESTRUCTIBLE, INDESTRUCTIBLE, ITEM, PLAYER, BULLET, NONE
 }
 
 public class TypeUtils {

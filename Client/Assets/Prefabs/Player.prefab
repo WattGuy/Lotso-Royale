@@ -499,7 +499,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 3
-  m_Sprite: {fileID: 21300000, guid: 4aa6899ab534a834087f02b0bff29aa5, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 5f527c82d9d221d44aaf3d4991ac072e, type: 3}
   m_Color: {r: 0.972549, g: 0.77254903, b: 0.45490196, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -720,7 +720,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 3
-  m_Sprite: {fileID: 21300000, guid: 4aa6899ab534a834087f02b0bff29aa5, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 5f527c82d9d221d44aaf3d4991ac072e, type: 3}
   m_Color: {r: 0.972549, g: 0.77254903, b: 0.45490196, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -1214,7 +1214,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 2
-  m_Sprite: {fileID: 21300000, guid: 4aa6899ab534a834087f02b0bff29aa5, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 5f527c82d9d221d44aaf3d4991ac072e, type: 3}
   m_Color: {r: 0.972549, g: 0.77254903, b: 0.45490196, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -1247,7 +1247,6 @@ MonoBehaviour:
   controllable: 0
   lastPosition: {x: 0, y: 0, z: 0}
   lastRotation: {x: 0, y: 0, z: 0, w: 0}
-  client: {fileID: 0}
   id: 0
   blood: {fileID: 7653764942749301043, guid: 5b648e743dfb8984588626e279774681, type: 3}
   cartridge: {fileID: 4868645134363062679, guid: f97fc20e9aab2de4e8b125768caa1919,

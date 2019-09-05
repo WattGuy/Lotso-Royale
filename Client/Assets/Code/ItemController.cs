@@ -7,12 +7,13 @@ using UnityEngine.Networking;
 
 public class ItemController : MonoBehaviour {
 
-    public ushort id;
+    public int id;
     public GameObject player = null;
     public float speed = 0.02f;
     public Item item = Item.M92;
     private SpriteRenderer progress = null;
     private bool all = false;
+    private long when;
 
     void Start() {
 
@@ -25,16 +26,20 @@ public class ItemController : MonoBehaviour {
 
         if (player != null && player.GetComponent<PlayerController>() != null && player.GetComponent<PlayerController>().controllable == true)
         {
-            if (all) progress.material.SetFloat("_Fillpercentage", 0f);
+            if (all)
+            {
+                progress.material.SetFloat("_Fillpercentage", 0f);
+                return;
+            }
+
             f += speed;
 
             if (f >= 1)
             {
 
                 progress.material.SetFloat("_Fillpercentage", 1f);
-                PlayerController pc = player.GetComponent<PlayerController>();
 
-                pc.client.Send(new PlayerPickupMessage(id), 0, ENet.PacketFlags.Reliable);
+                new PlayerPickupPacket(id).Write();
 
                 all = true;
 
@@ -47,7 +52,7 @@ public class ItemController : MonoBehaviour {
             }
 
         }
-        else if (f > 0){
+        else {
 
             progress.material.SetFloat("_Fillpercentage", 0f);
             all = false;

@@ -2,19 +2,15 @@
 
 public class Destructible : MonoBehaviour {
 
-    public ushort id;
-    public int max = 11;
-    public float step = 0.05f;
-    public int shots = 0;
+    public int id;
+    public int health = 11;
+    private float step = 0.05f;
 
-    private Vector3 scale;
-    private bool b = false;
+    public void SetHealth(int health) {
 
-    public void setShots(int shots) {
+        gameObject.transform.localScale = new Vector3(gameObject.transform.localScale.x - (0.05f * (this.health - health)), gameObject.transform.localScale.y - (0.05f * (this.health - health)), 0f);
 
-        gameObject.transform.localScale = new Vector3(gameObject.transform.localScale.x - (0.05f * (shots - this.shots)), gameObject.transform.localScale.y - (0.05f * (shots - this.shots)), 0f);
-
-        this.shots = shots;
+        this.health = health;
 
     }
 
