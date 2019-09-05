@@ -1,1 +1,1 @@
-Lotso Royale like surviv.io on unity engine using ENet networking engine
+Lotso Royale like surviv.io on unity engine. Server on java using netty + dyn4j (server physics engine)
