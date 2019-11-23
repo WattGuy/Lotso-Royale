@@ -1,0 +1,34 @@
+plugins {
+    id 'java'
+}
+
+sourceCompatibility = '1.8'
+targetCompatibility = '1.8'
+version = '1.0.0'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+
+    compile 'org.json:json:20180813'
+    compile 'org.dyn4j:dyn4j:3.3.0'
+    compile 'org.jogamp.gluegen:gluegen-rt-main:2.3.2'
+    compile 'org.jogamp.gluegen:gluegen:2.3.2'
+    compile 'org.jogamp.jogl:jogl-all-main:2.3.2'
+    compile 'io.netty:netty-all:4.1.43.Final'
+    compile 'com.google.protobuf:protobuf-java:3.9.2'
+
+}
+
+//create a single Jar with all dependencies
+task fatJar(type: Jar) {
+    manifest {
+        attributes  'Implementation-Version': version,
+                'Main-Class': 'me.wattguy.lotso.Main'
+    }
+    baseName = project.name + '-all'
+    from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
+    with jar
+}
